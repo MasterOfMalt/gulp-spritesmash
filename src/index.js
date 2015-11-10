@@ -51,11 +51,15 @@ function spriteSmash(params) {
 			var filePath = path.parse(file.path)
 			filePath.base = `${filePath.name}-${hash}${filePath.ext}`
 			var newName = path.normalize(path.format(filePath))
+			var originalName = file.path;
 			changedNames.push({
 				newName: newName,
 				originalName: file.path					
 			})
-			file.path = newName
+			file = _.merge(file, {
+				path: newName,
+				originalName: originalName
+			});
 		}, this);
 		
 		cssFiles.forEach(function(file) {
