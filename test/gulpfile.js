@@ -27,8 +27,8 @@ var otherFiles = [
 gulp.task('sprite-default-A', function () {
   return gulp.src(imagesA)
     .pipe(spritesmith({
-      imgName: './folder/sprite.png',
-      cssName: 'sprite.css'
+      imgName: 'sprite.png',
+      cssName: 'spriteCss.css'
     }))
     .pipe(spritesmash())
   	.pipe(gulp.dest('actual-files/default/A/'));
@@ -37,8 +37,8 @@ gulp.task('sprite-default-A', function () {
 gulp.task('sprite-default-B', function () {
   return gulp.src(imagesB)
     .pipe(spritesmith({
-      imgName: './folder/sprite.png',
-      cssName: 'sprite.css'
+      imgName: 'sprite.png',
+      cssName: 'spriteCss.css'
     }))
     .pipe(spritesmash())
   	.pipe(gulp.dest('actual-files/default/B/'));
@@ -48,8 +48,8 @@ gulp.task('sprite-default-B', function () {
 gulp.task('sprite-scss-A', function () {
   return gulp.src(imagesA)
     .pipe(spritesmith({
-      imgName: './folder/sprite.png',
-      cssName: 'sprite.scss'
+      imgName: 'sprite.png',
+      cssName: 'spriteCss.scss'
     }))
     .pipe(spritesmash())
   	.pipe(gulp.dest('actual-files/scss/A/'));
@@ -58,8 +58,8 @@ gulp.task('sprite-scss-A', function () {
 gulp.task('sprite-scss-B', function () {
   return gulp.src(imagesB)
     .pipe(spritesmith({
-      imgName: './folder/sprite.png',
-      cssName: 'sprite.scss'
+      imgName: 'sprite.png',
+      cssName: 'spriteCss.scss'
     }))
     .pipe(spritesmash())
   	.pipe(gulp.dest('actual-files/scss/B/'));
@@ -68,8 +68,8 @@ gulp.task('sprite-scss-B', function () {
 gulp.task('sprite-less-A', function () {
   return gulp.src(imagesA)
     .pipe(spritesmith({
-      imgName: './folder/sprite.png',
-      cssName: 'sprite.less'
+      imgName: 'sprite.png',
+      cssName: 'spriteCss.less'
     }))
     .pipe(spritesmash())
   	.pipe(gulp.dest('actual-files/less/A/'));
@@ -78,8 +78,8 @@ gulp.task('sprite-less-A', function () {
 gulp.task('sprite-less-B', function () {
   return gulp.src(imagesB)
     .pipe(spritesmith({
-      imgName: './folder/sprite.png',
-      cssName: 'sprite.less'
+      imgName: 'sprite.png',
+      cssName: 'spriteCss.less'
     }))
     .pipe(spritesmash())
   	.pipe(gulp.dest('actual-files/less/B/'));
