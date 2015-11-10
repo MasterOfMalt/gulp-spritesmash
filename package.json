@@ -9,6 +9,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "gulp.spritesmith": "^4.2.4"
+  },
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "through2": "^2.0.0"
   }
 }
