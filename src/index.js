@@ -1,11 +1,12 @@
 var through2 = require('through2');
 var crypto = require('crypto');
 var _ = require('lodash');
-var path = require('path')
+var path = require('path');
+var gutil = require('gulp-util');
 
 function spriteSmash(params) {
 	
-	var changedNames = [];
+	var renames = [];
 	var imgFormats = [ 
 		'png',
 		'jpeg',
@@ -13,6 +14,7 @@ function spriteSmash(params) {
 		'svg',
 		'gif'
 	]
+	
 	var cssFormats = [
 		'styl',
 		'stylus',
@@ -22,12 +24,35 @@ function spriteSmash(params) {
 		'css'
 	]
 	
+	var allExtensions = imgFormats.concat(cssFormats);
+	
 	// Create a stream to take in images
 	var files = [];
 	var onData = function (file, encoding, cb) {
-		if (file.path) {
-			files.push(file);
+		if (file.isNull()) {
+			this.push(file);
+			return cb();
 		}
+		
+		if (file.isStream()) {
+			this.emit('error', new gutil.PluginError('gulp-spritesmash', 'Streaming not supported'));
+			return cb();
+		}
+		
+		// Collect renames from reved files.
+		if (file.revOrigPath) {
+			renames.push({
+				originalName: path.normalise(path.relative(file.revOrigBase, file.revOrigPath)),
+				newName: path.normalise(path.relative(file.base, file.path)),
+			});
+		}
+		var fileExt = path.extname(file.path);
+		if (_.includes(allExtensions, fileExt.slice(1, fileExt.length))) {
+			files.push(file);
+		} else {
+			this.push(file);
+		}
+		
 		cb();
 	};
 	
@@ -52,27 +77,28 @@ function spriteSmash(params) {
 			filePath.base = `${filePath.name}-${hash}${filePath.ext}`
 			var newName = path.normalize(path.format(filePath))
 			var originalName = file.path;
-			changedNames.push({
+			
+			renames.push({
 				newName: newName,
 				originalName: file.path					
 			})
+			
 			file = _.merge(file, {
 				path: newName,
 				originalName: originalName
 			});
+			
+			that.push(file);
 		}, this);
 		
 		cssFiles.forEach(function(file) {
 			var contents = file.contents.toString();
-			changedNames.forEach(function replace(renamed) {
+			renames.forEach(function replace(renamed) {
 				contents = contents.split(renamed.originalName).join(renamed.newName);
 			});
 			file.contents = new Buffer(contents);
+			that.push(file);
 		}, this);
-		
-		for(var i = 0; i < files.length; i++) {
-			that.push(files[i]);
-		}
 		
 		cb();
 	}

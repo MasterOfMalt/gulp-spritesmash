@@ -13,6 +13,7 @@
     "gulp.spritesmith": "^4.2.4"
   },
   "dependencies": {
+    "gulp-util": "^3.0.7",
     "lodash": "^3.10.1",
     "through2": "^2.0.0"
   }
