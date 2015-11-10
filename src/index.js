@@ -10,7 +10,8 @@ function spriteSmash(params) {
 		'png',
 		'jpeg',
 		'jpg',
-		'svg'
+		'svg',
+		'gif'
 	]
 	var cssFormats = [
 		'styl',
