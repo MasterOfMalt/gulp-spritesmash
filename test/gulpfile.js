@@ -20,6 +20,10 @@ var imagesB = [
   'test-files/sprite5.png'
 ];
 
+var otherFiles = [
+  'test-files/text.txt'
+]
+
 gulp.task('sprite-default-A', function () {
   return gulp.src(imagesA)
     .pipe(spritesmith({
