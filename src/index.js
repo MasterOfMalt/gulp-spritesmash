@@ -21,7 +21,8 @@ function spriteSmash(params) {
 		'sass',
 		'scss',
 		'less',
-		'css'
+		'css',
+		'md'
 	]
 	
 	var allExtensions = imgFormats.concat(cssFormats);
@@ -38,16 +39,19 @@ function spriteSmash(params) {
 			this.emit('error', new gutil.PluginError('gulp-spritesmash', 'Streaming not supported'));
 			return cb();
 		}
+		var skip = false;
+		var fileExt = path.extname(file.path);
 		
 		// Collect renames from reved files.
 		if (file.revOrigPath) {
 			renames.push({
-				originalName: path.normalise(path.relative(file.revOrigBase, file.revOrigPath)),
-				newName: path.normalise(path.relative(file.base, file.path)),
+				originalName: path.normalize(path.relative(file.revOrigBase, file.revOrigPath)),
+				newName: path.normalize(path.relative(file.base, file.path)),
 			});
+			skip = !_.includes(cssFormats, fileExt.slice(1, fileExt.length));
 		}
-		var fileExt = path.extname(file.path);
-		if (_.includes(allExtensions, fileExt.slice(1, fileExt.length))) {
+		
+		if (!skip && _.includes(allExtensions, fileExt.slice(1, fileExt.length))) {
 			files.push(file);
 		} else {
 			this.push(file);

@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var spritesmith = require('gulp.spritesmith');
 var spritesmash = require('../src/index.js');
+var rev = require('gulp-rev');
 
 // Define our test tasks
 var imagesA = [
@@ -84,3 +85,14 @@ gulp.task('sprite-less-B', function () {
     .pipe(spritesmash())
   	.pipe(gulp.dest('actual-files/less/B/'));
 });
+
+gulp.task('rev-smash-markdown', function() {
+  return gulp.src([
+    'test-files/sprite4.png',
+    'test-files/sprite5.png',
+    'test-files/text.md'
+  ])
+    .pipe(rev())
+    .pipe(spritesmash())
+    .pipe(gulp.dest('actual-files/rev/'));
+})
