@@ -7,7 +7,7 @@ var gutil = require('gulp-util');
 function spriteSmash(params) {
 	
 	var renames = [];
-	var imgFormats = [ 
+	var revisionFormats = [
 		'png',
 		'jpeg',
 		'jpg',
@@ -15,7 +15,7 @@ function spriteSmash(params) {
 		'gif'
 	]
 	
-	var cssFormats = [
+	var updateFormats = [
 		'styl',
 		'stylus',
 		'sass',
@@ -25,7 +25,7 @@ function spriteSmash(params) {
 		'md'
 	]
 	
-	var allExtensions = imgFormats.concat(cssFormats);
+	var allExtensions = revisionFormats.concat(updateFormats);
 	
 	// Create a stream to take in images
 	var files = [];
@@ -48,7 +48,7 @@ function spriteSmash(params) {
 				originalName: path.normalize(path.relative(file.revOrigBase, file.revOrigPath)),
 				newName: path.normalize(path.relative(file.base, file.path)),
 			});
-			skip = !_.includes(cssFormats, fileExt.slice(1, fileExt.length));
+			skip = !_.includes(updateFormats, fileExt.slice(1, fileExt.length));
 		}
 		
 		if (!skip && _.includes(allExtensions, fileExt.slice(1, fileExt.length))) {
@@ -63,19 +63,17 @@ function spriteSmash(params) {
 	var onEnd = function (cb) {
 		var that = this;
 		
-		var imageFiles = _.filter(files, function(file) {
-			var filePath = path.parse(file.path),
-				ext = filePath.ext;
-			return _.includes(imgFormats, ext.slice(1, ext.length));
+		var revisionFiles = _.filter(files, function(file) {
+			var ext = path.extname(file.path);
+			return _.includes(revisionFormats, ext.slice(1, ext.length));
 		})
 		
-		var cssFiles = _.filter(files, function(file) {
-			var filePath = path.parse(file.path),
-				ext = filePath.ext;
-			return _.includes(cssFormats, ext.slice(1, ext.length));
+		var updateFiles = _.filter(files, function(file) {
+			var ext = path.extname(file.path);
+			return _.includes(updateFormats, ext.slice(1, ext.length));
 		})
 		
-		imageFiles.forEach(function(file) {
+		revisionFiles.forEach(function(file) {
 			var hash = crypto.createHash('md5').update(file.contents).digest('hex').slice(0, 10);
 			var filePath = path.parse(file.path)
 			filePath.base = `${filePath.name}-${hash}${filePath.ext}`
@@ -95,7 +93,7 @@ function spriteSmash(params) {
 			that.push(file);
 		}, this);
 		
-		cssFiles.forEach(function(file) {
+		updateFiles.forEach(function(file) {
 			var contents = file.contents.toString();
 			renames.forEach(function replace(renamed) {
 				contents = contents.split(renamed.originalName).join(renamed.newName);
