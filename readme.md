@@ -1,4 +1,5 @@
-# gulp-spritesmash
+# gulp-spritesmash [![Build Status](https://img.shields.io/travis/MasterOfMalt/gulp-spritesmash.svg?style=flat-square)](https://travis-ci.org/MasterOfMalt/gulp-spritesmash/) [![Build Status](https://img.shields.io/npm/v/gulp-spritesmash.svg?style=flat-square)](https://www.npmjs.com/package/gulp-spritesmash)
+
 
 > Versions your static assests based on their content 
   and updates all references to them in other passed files.
