@@ -1,3 +1,5 @@
+'use strict'
+
 var through2 = require('through2');
 var crypto = require('crypto');
 var _ = require('lodash');
