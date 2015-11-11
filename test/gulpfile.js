@@ -42,7 +42,6 @@ gulp.task('sprite-default-B', function() {
     .pipe(gulp.dest('actual-files/default/B/'));
 });
 
-
 gulp.task('sprite-scss-A', function() {
   return gulp.src(imagesA)
     .pipe(spritesmith({
@@ -91,7 +90,7 @@ gulp.task('rev-smash-markdown', function() {
   ])
     .pipe(rev())
     .pipe(spritesmash({
-      updateFormats: [ 'md' ],
+      updateFormats: ['md'],
     }))
     .pipe(gulp.dest('actual-files/rev/'));
 });
@@ -103,7 +102,7 @@ gulp.task('smash-Hash-MD5', function() {
     'test-files/text.md',
   ])
     .pipe(spritesmash({
-      updateFormats: [ 'md' ],
+      updateFormats: ['md'],
       hashFunction: 'MD5',
     }))
     .pipe(gulp.dest('actual-files/hash/MD5'));
@@ -116,7 +115,7 @@ gulp.task('smash-Hash-SHA1', function() {
     'test-files/text.md',
   ])
     .pipe(spritesmash({
-      updateFormats: [ 'md' ],
+      updateFormats: ['md'],
       hashFunction: 'SHA1',
     }))
     .pipe(gulp.dest('actual-files/hash/SHA1'));
@@ -129,7 +128,7 @@ gulp.task('smash-Hash-timestamp', function() {
     'test-files/text.md',
   ])
     .pipe(spritesmash({
-      updateFormats: [ 'md' ],
+      updateFormats: ['md'],
       hashFunction: 'Timestamp',
     }))
     .pipe(gulp.dest('actual-files/hash/timestamp'));
@@ -143,7 +142,7 @@ gulp.task('smash-Hash-custom', function() {
     'test-files/text.md',
   ])
     .pipe(spritesmash({
-      updateFormats: [ 'md' ],
+      updateFormats: ['md'],
       hashFunction: function(filePath) {
         i++;
         return `${filePath.name}-${i}-${filePath.ext}`;
@@ -159,7 +158,7 @@ gulp.task('smash-Hash-custom-query', function() {
     'test-files/text.md',
   ])
     .pipe(spritesmash({
-      updateFormats: [ 'md' ],
+      updateFormats: ['md'],
       hashFunction: function(filePath, contents) {
         const hash = crypto.createHash('md5').update(contents).digest('hex').slice(0, 10);
         return `${filePath.name}${filePath.ext}?q=${hash}`;

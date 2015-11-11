@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . && jscs src/ test/",
+    "pretest": "npm run lint",
     "test": "cd test && mocha . --timeout 60000 && cd .."
   },
   "author": "",

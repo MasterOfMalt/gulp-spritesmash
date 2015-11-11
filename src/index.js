@@ -51,9 +51,9 @@ function spriteSmash(options) {
   }
 
   const HashFunctions = {
-    'MD5': MD5Hash,
-    'Timestamp': timestampHash,
-    'SHA1': SHA1Hash,
+    MD5: MD5Hash,
+    Timestamp: timestampHash,
+    SHA1: SHA1Hash,
   };
 
   const allExtensions = revisionFormats.concat(updateFormats);
@@ -70,6 +70,7 @@ function spriteSmash(options) {
       this.emit('error', new gutil.PluginError('gulp-spritesmash', 'Streaming not supported'));
       return cb();
     }
+
     let skip = false;
     const fileExt = path.extname(file.path);
 
@@ -142,6 +143,7 @@ function spriteSmash(options) {
               .split(renamed.originalName)
               .join(renamed.newName);
       });
+
       file.contents = new Buffer(contents);
       that.push(file);
     }, this);

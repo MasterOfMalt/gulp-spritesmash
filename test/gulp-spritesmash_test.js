@@ -29,6 +29,7 @@ describe('gulp-spritesmash', function() {
             const spriteFile = _.find(files, function(item) {
               return item.match(/sprite-.*/g);
             });
+
             fs.readFileSync(__dirname + `/actual-files/${name}/${variation}/${spriteFile}`);
           });
         });
@@ -62,6 +63,7 @@ describe('gulp-spritesmash', function() {
       const filesHaveHash = _.every(actualFiles, function(item) {
         return item.match(/.*-.*/g);
       });
+
       assert.equal(filesHaveHash, true);
     });
 

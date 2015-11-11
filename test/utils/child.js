@@ -1,4 +1,5 @@
 /* global before, describe, it*/
+
 // Lovingly ripped off from https://github.com/twolfson/gulp.spritesmith/blob/master/test/utils/child.js
 // Load in dependencies
 const exec = require('child_process').exec;
@@ -11,6 +12,7 @@ exports.run = function(cmd) {
       if (!newErr && stderr) {
         newErr = new Error(stderr);
       }
+
       done(newErr);
     });
   });
