@@ -1,4 +1,4 @@
-# gulp-sprite-smash
+# gulp-spritesmash
 
 > Versions your static assests based on their content 
   and updates all references to them in other passed files.
