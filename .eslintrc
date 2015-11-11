@@ -1,6 +1,7 @@
 {
 	"extends": "airbnb/base",
   "rules": {
-     "strict": [0, "never" ]
+     "strict": [0, "never" ],
+     "func-names": 0,
   }
 }
