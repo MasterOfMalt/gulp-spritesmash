@@ -2,6 +2,5 @@ language: node_js
 node_js:
   - "node"
   - "4.2"
-  - "0.12"
 after_script:
   - npm run lint
