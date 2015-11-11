@@ -122,9 +122,8 @@ describe('gulp-spritesmash', function () {
 						assert.strictEqual(actualFile, expectedFile);
 					});			
 				})
-			})				
+			})
 		});
-			
 	})
 	
 	describe('running any task', function() {

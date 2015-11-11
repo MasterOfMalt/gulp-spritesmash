@@ -108,7 +108,7 @@ gulp.task('smash-Hash-MD5', function() {
   ])
     .pipe(spritesmash({ 
       updateFormats: [ 'md' ],
-      hashFunction: 'SHA1'
+      hashFunction: 'MD5'
     }))
     .pipe(gulp.dest('actual-files/hash/MD5'));
 })
@@ -134,7 +134,7 @@ gulp.task('smash-Hash-timestamp', function() {
   ])
     .pipe(spritesmash({ 
       updateFormats: [ 'md' ],
-      hashFunction: 'SHA1'
+      hashFunction: 'Timestamp'
     }))
     .pipe(gulp.dest('actual-files/hash/timestamp'));
 })
