@@ -1,15 +1,23 @@
 {
-  "name": "sprite-smash",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "gulp-spritesmash",
+  "version": "1.0.0",
+  "homepage": "https://github.com/masterofmalt/gulp-spritesmash",
+  "description": "Takes your files, updates image names with a hash based on a function and updates all references in other files",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/masterofmalt/gulp-spritesmash.git"
+  },
+  "bugs": {
+    "url": "https://github.com/masterofmalt/gulp-spritesmash/issues"
+  },
+  "main": "src/index.js",
   "scripts": {
     "lint": "eslint . && jscs src/ test/",
     "pretest": "npm run lint",
     "test": "cd test && mocha . --timeout 60000 && cd .."
   },
-  "author": "",
-  "license": "ISC",
+  "author": "MasterOfMalt",
+  "license": "MIT",
   "devDependencies": {
     "assert": "^1.3.0",
     "eslint": "^1.9.0",
@@ -25,5 +33,16 @@
     "gulp-util": "^3.0.7",
     "lodash": "^3.10.1",
     "through2": "^2.0.0"
-  }
+  },
+  "keywords": [
+    "gulpplugin",
+    "spritesmith",
+    "rev",
+    "revving",
+    "revision",
+    "hash",
+    "version",
+    "versioning",
+    "bust"
+  ]
 }
