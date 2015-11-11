@@ -1,12 +1,12 @@
 'use strict';
-const gulp = require('gulp');
-const spritesmith = require('gulp.spritesmith');
-const spritesmash = require('../src/index.js');
-const rev = require('gulp-rev');
-const crypto = require('crypto');
+var gulp = require('gulp');
+var spritesmith = require('gulp.spritesmith');
+var spritesmash = require('../lib/index.js');
+var rev = require('gulp-rev');
+var crypto = require('crypto');
 
 // Define our test tasks
-const imagesA = [
+var imagesA = [
   'test-files/sprite1.png',
   'test-files/sprite2.png',
   'test-files/sprite3.png',
@@ -15,7 +15,7 @@ const imagesA = [
 ];
 
 // Define our test tasks
-const imagesB = [
+var imagesB = [
   'test-files/sprite1.png',
   'test-files/sprite2.png',
   'test-files/sprite3.png',
@@ -135,7 +135,7 @@ gulp.task('smash-Hash-timestamp', function() {
     .pipe(gulp.dest('actual-files/hash/timestamp'));
 });
 
-let i = 0;
+var i = 0;
 gulp.task('smash-Hash-custom', function() {
   return gulp.src([
     'test-files/sprite4.png',
@@ -161,7 +161,7 @@ gulp.task('smash-Hash-custom-query', function() {
     .pipe(spritesmash({
       updateFormats: ['md'],
       hashFunction: function(filePath, contents) {
-        const hash = crypto.createHash('md5').update(contents).digest('hex').slice(0, 10);
+        var hash = crypto.createHash('md5').update(contents).digest('hex').slice(0, 10);
         return `${filePath.name}${filePath.ext}?q=${hash}`;
       },
     }))
