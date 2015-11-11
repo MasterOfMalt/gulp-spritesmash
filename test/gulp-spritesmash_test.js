@@ -39,7 +39,7 @@ describe('gulp-spritesmash', function () {
 							return item.match(/spriteCss\..*/g)
 						});
 						
-						var expectedFiles = fs.readdirSync(__dirname + `/actual-files/${name}/${variation}/`)				
+						var expectedFiles = fs.readdirSync(__dirname + `/expected-files/${name}/${variation}/`)				
 						var expectedCssFile = _.find(expectedFiles, function(item) { 
 							return item.match(/spriteCss\..*/g)
 						});
@@ -53,6 +53,79 @@ describe('gulp-spritesmash', function () {
 			});
 		})
 	}, this)
+	
+	describe('running spritesmash with rev', function() {
+		childUtils.run('gulp rev-smash-markdown');
+		
+		it('should have all files with a hash', function() {
+			var actualFiles = fs.readdirSync(__dirname + `/actual-files/rev/`)				
+			var filesHaveHash = _.every(actualFiles, function(item) { 
+				return item.match(/.*-.*/g)
+			});
+			assert.equal(filesHaveHash, true);
+		})
+		
+		it('should change file with reved contents', function() {
+			assert.doesNotThrow(function() {
+				var actualFiles = fs.readdirSync(__dirname + `/actual-files/rev`)				
+				var actualCssFile = _.find(actualFiles, function(item) { 
+					return item.match(/text-.*/g)
+				});
+				
+				var expectedFiles = fs.readdirSync(__dirname + `/expected-files/rev`)				
+				var expectedCssFile = _.find(expectedFiles, function(item) { 
+					return item.match(/text-.*/g)
+				});
+				
+				var actualCss = fs.readFileSync(__dirname + `/actual-files/rev/${actualCssFile}`, 'utf8');
+				var expectedCss = fs.readFileSync(__dirname + `/expected-files/rev/${expectedCssFile}`, 'utf8');
+				assert.strictEqual(actualCss, expectedCss);				
+			})
+		})		
+	})
+	
+	describe('running spritesmash with different hash functions', function() {
+		
+		[
+			'MD5',
+			'SHA1',
+			'timestamp',
+			'custom'
+		].forEach(function(name) {
+			describe('running hash function ' + name, function() {
+				childUtils.run(`gulp smash-Hash-${name}`);
+				
+				it('should have files with the correct hashes', function() {
+					assert.doesNotThrow(function() {
+						var actualFiles = fs.readdirSync(__dirname + `/actual-files/hash/${name}/`)				
+						
+						actualFiles.forEach(function(fileName) {
+							var actualFile = fs.readFileSync(__dirname + `/actual-files/hash/${name}/${fileName}`, 'utf8');
+							var expectedFile = fs.readFileSync(__dirname + `/expected-files/hash/${name}/${fileName}`, 'utf8');
+							assert.strictEqual(actualFile, expectedFile);
+						});			
+					})
+				})				
+			});
+		})
+		
+		describe('running hash function custom-query', function() {
+			childUtils.run(`gulp smash-Hash-custom-query`);
+			
+			it('should have files with the correct hashes', function() {
+				assert.doesNotThrow(function() {
+					var actualFiles = fs.readdirSync(__dirname + `/actual-files/hash/custom-query/`)				
+					
+					actualFiles.forEach(function(fileName) {
+						var actualFile = fs.readFileSync(__dirname + `/actual-files/hash/custom-query/${fileName}`, 'utf8');
+						var expectedFile = fs.readFileSync(__dirname + `/expected-files/hash/custom-query/${fileName}`, 'utf8');
+						assert.strictEqual(actualFile, expectedFile);
+					});			
+				})
+			})				
+		});
+			
+	})
 	
 	describe('running any task', function() {
 		childUtils.run('gulp sprite-default-A');

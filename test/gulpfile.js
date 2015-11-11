@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var spritesmith = require('gulp.spritesmith');
 var spritesmash = require('../src/index.js');
 var rev = require('gulp-rev');
+var crypto = require('crypto');
 
 // Define our test tasks
 var imagesA = [
@@ -93,6 +94,81 @@ gulp.task('rev-smash-markdown', function() {
     'test-files/text.md'
   ])
     .pipe(rev())
-    .pipe(spritesmash())
+    .pipe(spritesmash({ 
+      updateFormats: [ 'md' ]
+    }))
     .pipe(gulp.dest('actual-files/rev/'));
+})
+
+gulp.task('smash-Hash-MD5', function() {
+  return gulp.src([
+    'test-files/sprite4.png',
+    'test-files/sprite5.png',
+    'test-files/text.md'
+  ])
+    .pipe(spritesmash({ 
+      updateFormats: [ 'md' ],
+      hashFunction: 'SHA1'
+    }))
+    .pipe(gulp.dest('actual-files/hash/MD5'));
+})
+
+gulp.task('smash-Hash-SHA1', function() {
+  return gulp.src([
+    'test-files/sprite4.png',
+    'test-files/sprite5.png',
+    'test-files/text.md'
+  ])
+    .pipe(spritesmash({ 
+      updateFormats: [ 'md' ],
+      hashFunction: 'SHA1'
+    }))
+    .pipe(gulp.dest('actual-files/hash/SHA1'));
+})
+
+gulp.task('smash-Hash-timestamp', function() {
+  return gulp.src([
+    'test-files/sprite4.png',
+    'test-files/sprite5.png',
+    'test-files/text.md'
+  ])
+    .pipe(spritesmash({ 
+      updateFormats: [ 'md' ],
+      hashFunction: 'SHA1'
+    }))
+    .pipe(gulp.dest('actual-files/hash/timestamp'));
+})
+
+var i = 0;
+gulp.task('smash-Hash-custom', function() {
+  return gulp.src([
+    'test-files/sprite4.png',
+    'test-files/sprite5.png',
+    'test-files/text.md'
+  ])
+    .pipe(spritesmash({ 
+      updateFormats: [ 'md' ],
+      hashFunction: function(filePath, contents) {
+        i++;
+        return `${filePath.name}-${i}-${filePath.ext}`
+      }
+    }))
+    .pipe(gulp.dest('actual-files/hash/custom'));
+})
+
+var i = 0;
+gulp.task('smash-Hash-custom-query', function() {
+  return gulp.src([
+    'test-files/sprite4.png',
+    'test-files/sprite5.png',
+    'test-files/text.md'
+  ])
+    .pipe(spritesmash({ 
+      updateFormats: [ 'md' ],
+      hashFunction: function(filePath, contents) {
+        var hash = crypto.createHash('md5').update(contents).digest('hex').slice(0, 10);
+        return `${filePath.name}${filePath.ext}?q=${hash}`
+      }
+    }))
+    .pipe(gulp.dest('actual-files/hash/custom-query'));
 })
