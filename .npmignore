@@ -3,4 +3,4 @@ test/actual-files/
 typings/
 .vscode
 jsconfig.json
-lib/
+src/
