@@ -1,3 +1,4 @@
+'use strict';
 const gulp = require('gulp');
 const spritesmith = require('gulp.spritesmith');
 const spritesmash = require('../src/index.js');
