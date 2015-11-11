@@ -90,7 +90,6 @@ describe('gulp-spritesmash', function() {
     [
       'MD5',
       'SHA1',
-      'timestamp',
       'custom',
     ].forEach(function(name) {
       describe('running hash function ' + name, function() {
@@ -122,6 +121,23 @@ describe('gulp-spritesmash', function() {
             const expectedFile = fs.readFileSync(__dirname + `/expected-files/hash/custom-query/${fileName}`, 'utf8');
             assert.strictEqual(actualFile, expectedFile);
           });
+        });
+      });
+    });
+
+    describe('running hash function timestamp', function() {
+      childUtils.run(`gulp smash-Hash-timestamp`);
+
+      it('should have files with the correct hashes', function() {
+        assert.doesNotThrow(function() {
+          const actualFiles = fs.readdirSync(__dirname + `/actual-files/hash/timestamp`);
+          const actualSpriteHashed = _.find(actualFiles, function(item) {
+            return item.match(/sprite5-.*/g);
+          });
+
+          fs.readFileSync(__dirname + `/actual-files/hash/timestamp/${actualSpriteHashed}`, 'utf8');
+          const actualFile = fs.readFileSync(__dirname + `/actual-files/hash/timestamp/text.md`, 'utf8');
+          assert(actualFile.indexOf(actualSpriteHashed) > -1);
         });
       });
     });
