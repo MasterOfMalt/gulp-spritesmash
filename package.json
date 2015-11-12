@@ -1,6 +1,6 @@
 {
   "name": "gulp-spritesmash",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/masterofmalt/gulp-spritesmash",
   "description": "Takes your files, updates image names with a hash based on a function and updates all references in other files",
   "repository": {
