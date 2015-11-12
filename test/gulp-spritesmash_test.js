@@ -1,17 +1,17 @@
 /* global before, describe, it*/
 'use strict';
 
-var assert = require('assert');
-var rimraf = require('rimraf');
-var fs = require('fs');
-var _ = require('lodash');
-var childUtils = require('./utils/child.js');
+const assert = require('assert');
+const rimraf = require('rimraf');
+const fs = require('fs');
+const _ = require('lodash');
+const childUtils = require('./utils/child.js');
 
 before(function(done) {
   rimraf(__dirname + '/actual-files/', done);
 });
 
-var names = [
+const names = [
   'default',
   'scss',
   'less',
@@ -25,8 +25,8 @@ describe('gulp-spritesmash', function() {
 
         it('generates an image', function() {
           assert.doesNotThrow(function() {
-            var files = fs.readdirSync(__dirname + `/actual-files/${name}/${variation}/`);
-            var spriteFile = _.find(files, function(item) {
+            const files = fs.readdirSync(__dirname + `/actual-files/${name}/${variation}/`);
+            const spriteFile = _.find(files, function(item) {
               return item.match(/sprite-.*/g);
             });
 
@@ -36,18 +36,18 @@ describe('gulp-spritesmash', function() {
 
         it('generates a css file', function() {
           assert.doesNotThrow(function() {
-            var actualFiles = fs.readdirSync(__dirname + `/actual-files/${name}/${variation}/`);
-            var actualCssFile = _.find(actualFiles, function(item) {
+            const actualFiles = fs.readdirSync(__dirname + `/actual-files/${name}/${variation}/`);
+            const actualCssFile = _.find(actualFiles, function(item) {
               return item.match(/spriteCss\..*/g);
             });
 
-            var expectedFiles = fs.readdirSync(__dirname + `/expected-files/${name}/${variation}/`);
-            var expectedCssFile = _.find(expectedFiles, function(item) {
+            const expectedFiles = fs.readdirSync(__dirname + `/expected-files/${name}/${variation}/`);
+            const expectedCssFile = _.find(expectedFiles, function(item) {
               return item.match(/spriteCss\..*/g);
             });
 
-            var actualCss = fs.readFileSync(__dirname + `/actual-files/${name}/${variation}/${actualCssFile}`, 'utf8');
-            var expectedCss = fs.readFileSync(__dirname + `/expected-files/${name}/${variation}/${expectedCssFile}`, 'utf8');
+            const actualCss = fs.readFileSync(__dirname + `/actual-files/${name}/${variation}/${actualCssFile}`, 'utf8');
+            const expectedCss = fs.readFileSync(__dirname + `/expected-files/${name}/${variation}/${expectedCssFile}`, 'utf8');
             assert.strictEqual(actualCss, expectedCss);
           });
         });
@@ -59,8 +59,8 @@ describe('gulp-spritesmash', function() {
     childUtils.run('gulp rev-smash-markdown');
 
     it('should have all files with a hash', function() {
-      var actualFiles = fs.readdirSync(__dirname + `/actual-files/rev/`);
-      var filesHaveHash = _.every(actualFiles, function(item) {
+      const actualFiles = fs.readdirSync(__dirname + `/actual-files/rev/`);
+      const filesHaveHash = _.every(actualFiles, function(item) {
         return item.match(/.*-.*/g);
       });
 
@@ -69,18 +69,18 @@ describe('gulp-spritesmash', function() {
 
     it('should change file with reved contents', function() {
       assert.doesNotThrow(function() {
-        var actualFiles = fs.readdirSync(__dirname + `/actual-files/rev`);
-        var actualCssFile = _.find(actualFiles, function(item) {
+        const actualFiles = fs.readdirSync(__dirname + `/actual-files/rev`);
+        const actualCssFile = _.find(actualFiles, function(item) {
           return item.match(/text-.*/g);
         });
 
-        var expectedFiles = fs.readdirSync(__dirname + `/expected-files/rev`);
-        var expectedCssFile = _.find(expectedFiles, function(item) {
+        const expectedFiles = fs.readdirSync(__dirname + `/expected-files/rev`);
+        const expectedCssFile = _.find(expectedFiles, function(item) {
           return item.match(/text-.*/g);
         });
 
-        var actualCss = fs.readFileSync(__dirname + `/actual-files/rev/${actualCssFile}`, 'utf8');
-        var expectedCss = fs.readFileSync(__dirname + `/expected-files/rev/${expectedCssFile}`, 'utf8');
+        const actualCss = fs.readFileSync(__dirname + `/actual-files/rev/${actualCssFile}`, 'utf8');
+        const expectedCss = fs.readFileSync(__dirname + `/expected-files/rev/${expectedCssFile}`, 'utf8');
         assert.strictEqual(actualCss, expectedCss);
       });
     });
@@ -97,11 +97,11 @@ describe('gulp-spritesmash', function() {
 
         it('should have files with the correct hashes', function() {
           assert.doesNotThrow(function() {
-            var actualFiles = fs.readdirSync(__dirname + `/actual-files/hash/${name}/`);
+            const actualFiles = fs.readdirSync(__dirname + `/actual-files/hash/${name}/`);
 
             actualFiles.forEach(function(fileName) {
-              var actualFile = fs.readFileSync(__dirname + `/actual-files/hash/${name}/${fileName}`, 'utf8');
-              var expectedFile = fs.readFileSync(__dirname + `/expected-files/hash/${name}/${fileName}`, 'utf8');
+              const actualFile = fs.readFileSync(__dirname + `/actual-files/hash/${name}/${fileName}`, 'utf8');
+              const expectedFile = fs.readFileSync(__dirname + `/expected-files/hash/${name}/${fileName}`, 'utf8');
               assert.strictEqual(actualFile, expectedFile);
             });
           });
@@ -114,11 +114,11 @@ describe('gulp-spritesmash', function() {
 
       it('should have files with the correct hashes', function() {
         assert.doesNotThrow(function() {
-          var actualFiles = fs.readdirSync(__dirname + `/actual-files/hash/custom-query/`);
+          const actualFiles = fs.readdirSync(__dirname + `/actual-files/hash/custom-query/`);
 
           actualFiles.forEach(function(fileName) {
-            var actualFile = fs.readFileSync(__dirname + `/actual-files/hash/custom-query/${fileName}`, 'utf8');
-            var expectedFile = fs.readFileSync(__dirname + `/expected-files/hash/custom-query/${fileName}`, 'utf8');
+            const actualFile = fs.readFileSync(__dirname + `/actual-files/hash/custom-query/${fileName}`, 'utf8');
+            const expectedFile = fs.readFileSync(__dirname + `/expected-files/hash/custom-query/${fileName}`, 'utf8');
             assert.strictEqual(actualFile, expectedFile);
           });
         });
@@ -130,13 +130,13 @@ describe('gulp-spritesmash', function() {
 
       it('should have files with the correct hashes', function() {
         assert.doesNotThrow(function() {
-          var actualFiles = fs.readdirSync(__dirname + `/actual-files/hash/timestamp`);
-          var actualSpriteHashed = _.find(actualFiles, function(item) {
+          const actualFiles = fs.readdirSync(__dirname + `/actual-files/hash/timestamp`);
+          const actualSpriteHashed = _.find(actualFiles, function(item) {
             return item.match(/sprite5-.*/g);
           });
 
           fs.readFileSync(__dirname + `/actual-files/hash/timestamp/${actualSpriteHashed}`, 'utf8');
-          var actualFile = fs.readFileSync(__dirname + `/actual-files/hash/timestamp/text.md`, 'utf8');
+          const actualFile = fs.readFileSync(__dirname + `/actual-files/hash/timestamp/text.md`, 'utf8');
           assert(actualFile.indexOf(actualSpriteHashed) > -1);
         });
       });
@@ -149,13 +149,13 @@ describe('gulp-spritesmash', function() {
 
     it('generates a different image for different content', function() {
       assert.doesNotThrow(function() {
-        var filesA = fs.readdirSync(__dirname + '/actual-files/default/A/');
-        var nameA = _.find(filesA, function(item) {
+        const filesA = fs.readdirSync(__dirname + '/actual-files/default/A/');
+        const nameA = _.find(filesA, function(item) {
           return item.match(/sprite-.*/g);
         });
 
-        var filesB = fs.readdirSync(__dirname + '/actual-files/default/B/');
-        var nameB = _.find(filesB, function(item) {
+        const filesB = fs.readdirSync(__dirname + '/actual-files/default/B/');
+        const nameB = _.find(filesB, function(item) {
           return item.match(/sprite-.*/g);
         });
 
