@@ -5,6 +5,7 @@ const assert = require("assert");
 const rimraf = require("rimraf");
 const fs = require("fs");
 const _ = require("lodash");
+var eol = require("eol");
 const childUtils = require("./utils/child.js");
 
 before(function(done) {
@@ -59,7 +60,7 @@ describe("gulp-spritesmash", function() {
                 `/expected-files/${name}/${variation}/${expectedCssFile}`,
               "utf8"
             );
-            assert.strictEqual(actualCss, expectedCss);
+            assert.strictEqual(eol.lf(actualCss), eol.lf(expectedCss));
           });
         });
       });
@@ -98,7 +99,7 @@ describe("gulp-spritesmash", function() {
           __dirname + `/expected-files/rev/${expectedCssFile}`,
           "utf8"
         );
-        assert.strictEqual(actualCss, expectedCss);
+        assert.strictEqual(eol.lf(actualCss), eol.lf(expectedCss));
       });
     });
   });
@@ -123,7 +124,7 @@ describe("gulp-spritesmash", function() {
                 __dirname + `/expected-files/hash/${name}/${fileName}`,
                 "utf8"
               );
-              assert.strictEqual(actualFile, expectedFile);
+              assert.strictEqual(eol.lf(actualFile), eol.lf(expectedFile));
             });
           });
         });
@@ -148,7 +149,7 @@ describe("gulp-spritesmash", function() {
               __dirname + `/expected-files/hash/custom-query/${fileName}`,
               "utf8"
             );
-            assert.strictEqual(actualFile, expectedFile);
+            assert.strictEqual(eol.lf(actualFile), eol.lf(expectedFile));
           });
         });
       });

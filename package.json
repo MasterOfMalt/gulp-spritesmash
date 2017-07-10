@@ -19,7 +19,7 @@
   "author": "MasterOfMalt",
   "license": "MIT",
   "devDependencies": {
-    "assert": "^1.4.1",
+    "eol": "^0.9.0",
     "eslint": "^4.2.0",
     "eslint-config-prettier": "^2.3.0",
     "eslint-plugin-prettier": "^2.1.2",
