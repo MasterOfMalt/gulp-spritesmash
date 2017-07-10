@@ -74,14 +74,6 @@ function spriteSmash(options) {
       return cb();
     }
 
-    if (file.isStream()) {
-      this.emit(
-        "error",
-        new gutil.PluginError("gulp-spritesmash", "Streaming not supported")
-      );
-      return cb();
-    }
-
     let skip = false;
     const fileExt = path.extname(file.path);
 
@@ -126,7 +118,10 @@ function spriteSmash(options) {
         : HashFunctions[opts.hashFunction];
 
       const filePath = path.parse(file.path);
-      const newName = hashFunc(filePath, file.contents);
+      const newName = hashFunc(
+        filePath,
+        file.isStream() ? file.contents.toString() : file.contents
+      );
       const originalName = filePath.base;
       filePath.base = newName;
       const newPath = path.normalize(path.format(filePath)).split(/[?#]/)[0];

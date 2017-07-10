@@ -40,7 +40,6 @@ gulp.task('default', function () {
       imgName: 'sprite.png',
       cssName: 'sprite.css',
     }))
-    .pipe(buffer())
     .pipe(spritesmash())
     .pipe(gulp.dest('dist'));
 });

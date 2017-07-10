@@ -52,6 +52,19 @@ gulp.task("sprite-default-B", function() {
     .pipe(gulp.dest("actual-files/default/B/"));
 });
 
+gulp.task("sprite-default-C", function() {
+  return gulp
+    .src(imagesB)
+    .pipe(
+      spritesmith({
+        imgName: "sprite.png",
+        cssName: "spriteCss.css"
+      })
+    )
+    .pipe(spritesmash())
+    .pipe(gulp.dest("actual-files/default/C/"));
+});
+
 gulp.task("sprite-scss-A", function() {
   return gulp
     .src(imagesA)
@@ -80,6 +93,19 @@ gulp.task("sprite-scss-B", function() {
     .pipe(gulp.dest("actual-files/scss/B/"));
 });
 
+gulp.task("sprite-scss-C", function() {
+  return gulp
+    .src(imagesB)
+    .pipe(
+      spritesmith({
+        imgName: "sprite.png",
+        cssName: "spriteCss.scss"
+      })
+    )
+    .pipe(spritesmash())
+    .pipe(gulp.dest("actual-files/scss/C/"));
+});
+
 gulp.task("sprite-less-A", function() {
   return gulp
     .src(imagesA)
@@ -106,6 +132,19 @@ gulp.task("sprite-less-B", function() {
     .pipe(buffer())
     .pipe(spritesmash())
     .pipe(gulp.dest("actual-files/less/B/"));
+});
+
+gulp.task("sprite-less-C", function() {
+  return gulp
+    .src(imagesB)
+    .pipe(
+      spritesmith({
+        imgName: "sprite.png",
+        cssName: "spriteCss.less"
+      })
+    )
+    .pipe(spritesmash())
+    .pipe(gulp.dest("actual-files/less/C/"));
 });
 
 gulp.task("rev-smash-markdown", function() {

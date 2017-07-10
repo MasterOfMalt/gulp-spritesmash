@@ -16,7 +16,7 @@ const names = ["default", "scss", "less"];
 
 describe("gulp-spritesmash", function() {
   names.forEach(function(name) {
-    ["A", "B"].forEach(function(variation) {
+    ["A", "B", "C"].forEach(function(variation) {
       describe(`running a task without any options - ${name} : ${variation}`, function() {
         childUtils.run(`gulp sprite-${name}-${variation}`);
 
