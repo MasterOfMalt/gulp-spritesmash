@@ -31,6 +31,7 @@ $ npm install --save-dev gulp-spritesmash
 ```js
 var gulp = require('gulp');
 var spritesmith = require('gulp.spritesmith');
+var buffer = require('gulp-buffer');
 var spritesmash = require('gulp-spritesmash');
 
 gulp.task('default', function () {
@@ -39,6 +40,7 @@ gulp.task('default', function () {
       imgName: 'sprite.png',
       cssName: 'sprite.css',
     }))
+    .pipe(buffer())
     .pipe(spritesmash())
     .pipe(gulp.dest('dist'));
 });
