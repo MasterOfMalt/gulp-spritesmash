@@ -3,6 +3,7 @@ const gulp = require("gulp");
 const spritesmith = require("gulp.spritesmith");
 const spritesmash = require("../src/index.js");
 const rev = require("gulp-rev");
+const buffer = require("gulp-buffer");
 const crypto = require("crypto");
 
 // Define our test tasks
@@ -32,6 +33,7 @@ gulp.task("sprite-default-A", function() {
         cssName: "spriteCss.css"
       })
     )
+    .pipe(buffer())
     .pipe(spritesmash())
     .pipe(gulp.dest("actual-files/default/A/"));
 });
@@ -45,6 +47,7 @@ gulp.task("sprite-default-B", function() {
         cssName: "spriteCss.css"
       })
     )
+    .pipe(buffer())
     .pipe(spritesmash())
     .pipe(gulp.dest("actual-files/default/B/"));
 });
@@ -58,6 +61,7 @@ gulp.task("sprite-scss-A", function() {
         cssName: "spriteCss.scss"
       })
     )
+    .pipe(buffer())
     .pipe(spritesmash())
     .pipe(gulp.dest("actual-files/scss/A/"));
 });
@@ -71,6 +75,7 @@ gulp.task("sprite-scss-B", function() {
         cssName: "spriteCss.scss"
       })
     )
+    .pipe(buffer())
     .pipe(spritesmash())
     .pipe(gulp.dest("actual-files/scss/B/"));
 });
@@ -84,6 +89,7 @@ gulp.task("sprite-less-A", function() {
         cssName: "spriteCss.less"
       })
     )
+    .pipe(buffer())
     .pipe(spritesmash())
     .pipe(gulp.dest("actual-files/less/A/"));
 });
@@ -97,6 +103,7 @@ gulp.task("sprite-less-B", function() {
         cssName: "spriteCss.less"
       })
     )
+    .pipe(buffer())
     .pipe(spritesmash())
     .pipe(gulp.dest("actual-files/less/B/"));
 });
