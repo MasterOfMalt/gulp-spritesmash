@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-const through2 = require('through2');
-const crypto = require('crypto');
-const _ = require('lodash');
-const path = require('path');
-const gutil = require('gulp-util');
+const through2 = require("through2");
+const crypto = require("crypto");
+const _ = require("lodash");
+const path = require("path");
+const gutil = require("gulp-util");
 
 function spriteSmash(options) {
   const renames = [];
@@ -12,23 +12,19 @@ function spriteSmash(options) {
   const opts = options || {};
   opts.updateFormats = opts.updateFormats || [];
   opts.revisionFormats = opts.revisionFormats || [];
-  opts.hashFunction = opts.hashFunction || 'MD5';
+  opts.hashFunction = opts.hashFunction || "MD5";
 
-  const revisionFormats = [
-    'png',
-    'jpeg',
-    'jpg',
-    'svg',
-    'gif',
-  ].concat(opts.revisionFormats);
+  const revisionFormats = ["png", "jpeg", "jpg", "svg", "gif"].concat(
+    opts.revisionFormats
+  );
 
   const updateFormats = [
-    'styl',
-    'stylus',
-    'sass',
-    'scss',
-    'less',
-    'css',
+    "styl",
+    "stylus",
+    "sass",
+    "scss",
+    "less",
+    "css"
   ].concat(opts.updateFormats);
 
   function buildHashString(filePath, hash) {
@@ -36,24 +32,36 @@ function spriteSmash(options) {
   }
 
   function MD5Hash(filePath, contents) {
-    const hash = crypto.createHash('md5').update(contents).digest('hex').slice(0, 10);
+    const hash = crypto
+      .createHash("md5")
+      .update(contents)
+      .digest("hex")
+      .slice(0, 10);
     return buildHashString(filePath, hash);
   }
 
   function SHA1Hash(filePath, contents) {
-    const hash = crypto.createHash('sha1').update(contents).digest('hex').slice(0, 10);
+    const hash = crypto
+      .createHash("sha1")
+      .update(contents)
+      .digest("hex")
+      .slice(0, 10);
     return buildHashString(filePath, hash);
   }
 
   function timestampHash(filePath) {
-    const hash = crypto.createHash('md5').update(new Date().toISOString()).digest('hex').slice(0, 10);
+    const hash = crypto
+      .createHash("md5")
+      .update(new Date().toISOString())
+      .digest("hex")
+      .slice(0, 10);
     return buildHashString(filePath, hash);
   }
 
   const HashFunctions = {
     MD5: MD5Hash,
     Timestamp: timestampHash,
-    SHA1: SHA1Hash,
+    SHA1: SHA1Hash
   };
 
   const allExtensions = revisionFormats.concat(updateFormats);
@@ -67,7 +75,10 @@ function spriteSmash(options) {
     }
 
     if (file.isStream()) {
-      this.emit('error', new gutil.PluginError('gulp-spritesmash', 'Streaming not supported'));
+      this.emit(
+        "error",
+        new gutil.PluginError("gulp-spritesmash", "Streaming not supported")
+      );
       return cb();
     }
 
@@ -78,9 +89,11 @@ function spriteSmash(options) {
     if (file.revOrigPath) {
       renames.push({
         originalName: file.revOrigBase,
-        originalPath: path.normalize(path.relative(file.revOrigBase, file.revOrigPath)),
+        originalPath: path.normalize(
+          path.relative(file.revOrigBase, file.revOrigPath)
+        ),
         newName: file.base,
-        newPath: path.normalize(path.relative(file.base, file.path)),
+        newPath: path.normalize(path.relative(file.base, file.path))
       });
       skip = !_.includes(updateFormats, fileExt.slice(1, fileExt.length));
     }
@@ -108,9 +121,9 @@ function spriteSmash(options) {
     });
 
     revisionFiles.forEach(function hashFiles(file) {
-      const hashFunc = _.isFunction(opts.hashFunction) ?
-              opts.hashFunction :
-              HashFunctions[opts.hashFunction];
+      const hashFunc = _.isFunction(opts.hashFunction)
+        ? opts.hashFunction
+        : HashFunctions[opts.hashFunction];
 
       const filePath = path.parse(file.path);
       const newName = hashFunc(filePath, file.contents);
@@ -123,12 +136,12 @@ function spriteSmash(options) {
         newName: newName,
         newPath: newPath,
         originalName: originalName,
-        originalPath: originalPath,
+        originalPath: originalPath
       });
 
       const newFile = _.merge(file, {
         path: newPath,
-        originalName: originalName,
+        originalName: originalName
       });
 
       that.push(newFile);
@@ -138,10 +151,10 @@ function spriteSmash(options) {
       let contents = file.contents.toString();
       renames.forEach(function replace(renamed) {
         contents = contents
-              .split(renamed.originalPath)
-              .join(renamed.newPath)
-              .split(renamed.originalName)
-              .join(renamed.newName);
+          .split(renamed.originalPath)
+          .join(renamed.newPath)
+          .split(renamed.originalName)
+          .join(renamed.newName);
       });
 
       file.contents = new Buffer(contents);
